@@ -8,6 +8,7 @@ class HashTable:
         result = 0
         for char in item:
             result += ord(char) * count
+            count += 1
         return result % len(self.space)
 
     def append(self, item, value):
