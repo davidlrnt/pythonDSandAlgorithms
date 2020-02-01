@@ -15,6 +15,7 @@ class HashTable:
         hashvalue = self.hash(item)
         if self.space[hashvalue] is None:
             self.space[hashvalue] = [item, value]
+            self.count += 1
         else:
             foundSpace = False
             count = 1
@@ -22,6 +23,8 @@ class HashTable:
                 if self.space[hashvalue + count] is None:
                     foundSpace = True
                     self.space[hashvalue + count] = [item, value]
+                    self.count += 1
+                count += 1
 
     def get(self, item):
         hashvalue = self.hash(item)
@@ -30,10 +33,28 @@ class HashTable:
         else:
             foundSpace = False
             count = 1
-            while not foundSpace:
+            while not foundSpace and (hashvalue + count) < len(self.space):
                 if self.space[hashvalue + count] and self.space[hashvalue + count][1] == item:
                     foundSpace = True
                     return self.space[hashvalue + count][1]
+                count += 1
+
+            return None
+
+    def delete(self, item):
+        hashvalue = self.hash(item)
+        if self.space[hashvalue] and self.space[hashvalue][0] == item:
+            self.space[hashvalue] = None
+            self.count -= 1
+        else:
+            foundSpace = False
+            count = 1
+            while not foundSpace:
+                if self.space[hashvalue + count] and self.space[hashvalue + count][1] == item:
+                    foundSpace = True
+                    self.space[hashvalue + count] = None
+                    self.count -= 1
+                count += 1
 
     def __setitem__(self, key, value): 
         self.append(key, value) 
@@ -55,5 +76,9 @@ print(table.get("lime"))
 
 
 table["pear"] = 5
+
+print(table["pear"])
+
+table.delete("pear")
 
 print(table["pear"])
