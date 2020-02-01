@@ -1,7 +1,7 @@
 class HashTable:
-    def __init__(self):
+    def __init__(self, size = 255):
         self.count = 0
-        self.space = [None for i in range(255)]
+        self.space = [None for i in range(size)]
 
     def hash(self, item):
         count = 1
