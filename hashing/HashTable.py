@@ -1,6 +1,7 @@
 class HashTable:
     def __init__(self, size = 255):
         self.count = 0
+        self.size = size
         self.space = [None for i in range(size)]
 
     def hash(self, item):
@@ -56,6 +57,9 @@ class HashTable:
                     self.count -= 1
                 count += 1
 
+    def loadfactor(self):
+        return self.count / self.size
+
     def __setitem__(self, key, value): 
         self.append(key, value) 
 
@@ -64,7 +68,7 @@ class HashTable:
 
 table = HashTable()
 
-
+print(table.loadfactor())
 table.append("apple", 5)
 table.append("mayo", 1)
 table.append("avocado", 2)
@@ -74,6 +78,7 @@ table.append("lime", 3)
 print(table.get("avocado"))
 print(table.get("lime"))
 
+print(table.loadfactor())
 
 table["pear"] = 5
 
