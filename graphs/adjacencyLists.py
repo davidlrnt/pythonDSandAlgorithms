@@ -21,7 +21,7 @@ graph['F'] = ['C']
 def aListToMatrix(graph):
 	keys = sorted(graph.keys())
 	size = len(keys)
-	matrix = [[0 for i in range(size)] for i in range(size)]
+	matrix = [[0 for y in range(size)] for i in range(size)]
 
 	keyIndex = {}
 
@@ -29,10 +29,10 @@ def aListToMatrix(graph):
 		keyIndex[key] = i
 
 	for i in range(size):
-		connected = graph[keys[i]]
+		edges = graph[keys[i]]
 		row = matrix[i]
 
-		for n in connected:
+		for n in edges:
 			row[keyIndex[n]] = 1
 
 	return matrix
